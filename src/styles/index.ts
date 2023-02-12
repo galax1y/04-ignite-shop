@@ -23,6 +23,9 @@ export const {
 
       green500: '#00875f',
       green300: '#00b37e',
+
+      grayIcon: '#8D8D99',
+      
     },
     fontSizes: {
       md: '1.125rem',
