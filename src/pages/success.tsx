@@ -26,9 +26,12 @@ export default function Success({ customerName, products }: SuccessProps) {
 
 			<SuccessContainer>
 				<ImageContainer>
-					{products.map((product => {
-						return <Image key={Math.floor(Math.random() * 8372167)} src={product.imageUrl} width={120} height={110} alt="" />
-					}))}
+					{products.map((product, i) => {
+						return <Image
+							key={product.name + customerName + product + String(i)}
+							src={product.imageUrl} width={120}
+							height={110} alt="" />
+					})}
 				</ImageContainer>
 
 				<h1>Compra efetuada</h1>
