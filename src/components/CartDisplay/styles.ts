@@ -1,54 +1,71 @@
-import {styled} from '../../styles'
+import {keyframes, styled} from '../../styles'
 import {Button} from '../Button/styles'
 
+const scrollLeft = keyframes({
+	'0%': {
+		transform: 'translateX(calc(100% + 480px))',
+		opacity: 0,
+		position: 'fixed',
+	},
+	'100%': {
+		transform: 'translateX(calc(100% - 480px))',
+		opacity: 1,
+		position: 'fixed',
+	},
+})
+
 export const AsideCartDisplay = styled('aside', {
+	zIndex: 1,
+
+	width: 480,
+	height: '100%',
+
 	position: 'absolute',
 	top: 0,
 	left: 'calc(100% - 480px)',
+	animation: `${scrollLeft} 0.4s ease-in-out`,
+
 	backgroundColor: '$gray800',
-	width: 480,
-	height: '100%',
+	boxShadow: '0px 0px 60px rgba(0, 0, 0, 0.4)',
 
 	display: 'flex',
 	flexDirection: 'column',
 
-	boxShadow: '-4px 0px 30px rgba(0, 0, 0, 0.8)',
-
 	[`${Button}`]: {
 		alignSelf: 'flex-end',
 		padding: '1.5rem',
+	},
+
+	h2: {
+		margin: '0 3rem',
+		marginBottom: '0.5rem',
+		fontSize: '$lg',
 	},
 })
 
 export const CartContentContainer = styled('div', {
 	margin: '0 3rem',
 	marginTop: '2rem',
-	maxHeight: '50%',
+	height: '55%',
+
 	overflow: 'hidden',
 	overflowY: 'scroll',
+
+	borderRadius: 8,
+	boxShadow: '0px 0px 60px rgba(0, 0, 0, 0.6)',
 
 	display: 'flex',
 	flexDirection: 'column',
 	gap: '1.5rem',
-
-	h2: {
-		marginBottom: '0.5rem',
-		fontSize: '$lg',
-	},
 })
 
 export const CartItem = styled('div', {
 	display: 'flex',
 	gap: '1.25rem',
 
-	img: {
-		borderRadius: 10,
-	},
-
 	div: {
 		display: 'flex',
 		flexDirection: 'column',
-		width: '100%',
 	},
 
 	span: {
@@ -79,8 +96,34 @@ export const CartItem = styled('div', {
 	},
 })
 
+export const ImageContainer = styled('div', {
+	width: 100,
+	height: 100,
+	borderRadius: 8,
+
+	background: 'linear-gradient(180deg, #1EA483 0%, #7465D4 100%)',
+
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+
+	img: {
+		width: 90,
+		height: 90,
+		objectFit: 'fill',
+		borderRadius: 10,
+	},
+})
+
 export const CartInteractionContainer = styled('div', {
+	display: 'flex',
+	alignItems: 'center',
+	flexDirection: 'column',
+	gap: '0.5rem',
+
 	margin: '0 3rem',
+	marginTop: '2rem',
+
 	height: '11.75rem',
 
 	color: '$gray100',
@@ -95,8 +138,21 @@ export const CartInteractionContainer = styled('div', {
 		justifyContent: 'space-between',
 	},
 
+	span: {
+		'&:last-child': {
+			fontSize: '$md',
+		},
+	},
+
+	strong: {
+		'&:last-child': {
+			fontSize: '$xl',
+		},
+	},
+
 	button: {
 		all: 'unset',
+		marginTop: '3.5rem',
 
 		width: '100%',
 		padding: '1.25rem 0',
