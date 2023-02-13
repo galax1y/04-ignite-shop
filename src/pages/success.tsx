@@ -7,12 +7,9 @@ import Link from 'next/link'
 import Stripe from 'stripe'
 import { stripe } from '../lib/stripe'
 import Head from 'next/head'
-import { useEffect } from 'react'
-import { useShoppingCart } from 'use-shopping-cart'
 
 interface SuccessProps {
 	customerName: string
-	// receber vários produtos
 	products: {
 		name: string
 		imageUrl: string

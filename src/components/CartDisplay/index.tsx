@@ -24,14 +24,11 @@ export default function CartDisplay() {
     handleCartClick,
   } = useShoppingCart()
 
-
-
   if (cartDetails === undefined) {
-    return <></>
+    return <>Error: cartDetails is undefined</>
   }
 
   const cartItems = Object.values(cartDetails)
-
   const isCartEmpty = cartItems.length === 0
 
   function ToggleCart() {
@@ -39,10 +36,7 @@ export default function CartDisplay() {
   }
 
   async function handleCheckout() {
-
     try {
-
-
       const lineItems = cartItems.map((item) => {
         return {
           price: item.price_id,
@@ -53,16 +47,15 @@ export default function CartDisplay() {
       const response = await axios.post('/api/checkout', {
         lineItems
       })
-
       const { checkoutUrl } = response.data
       window.location.href = checkoutUrl
+
       clearCart()
     }
     catch (err) {
       alert('Falha ao redirecionar ao checkout')
     }
   }
-
   return <>
     {shouldDisplayCart ?
       <AsideCartDisplay>
@@ -89,7 +82,6 @@ export default function CartDisplay() {
                   <strong>
                     {priceFormatter(item.price)}
                   </strong>
-
                   <button onClick={() => {
                     decrementItem(item.id)
                   }}>Remover</button>
@@ -108,8 +100,6 @@ export default function CartDisplay() {
               </div>
               <ThumbsUp size={36} weight={'fill'} />
             </EmptyCartMessage>}
-
-
         </CartContentContainer>
 
         <CartInteractionContainer>
@@ -117,7 +107,6 @@ export default function CartDisplay() {
             <span>Quantidade</span>
             <span>{cartCount}</span>
           </div>
-
           <div>
             <strong>Valor total</strong>
             <strong>{priceFormatter(totalPrice!)}</strong>
@@ -131,47 +120,12 @@ export default function CartDisplay() {
             Finalizar compra
           </button>
         </CartInteractionContainer>
-
-
-        {cartDetails ?
-          null
-          : 'Nothing to display'}
-      </AsideCartDisplay> :
+      </AsideCartDisplay>
+      : // shouldDisplayCart ? code above : code below
       <Button
         onClick={ToggleCart}
         variant={'gray'}>
         <Handbag size={24} weight={'bold'} />
       </Button>}
   </>
-
 }
-
-// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-// 	if (!query.session_id) {
-// 		return {
-// 			redirect: {
-// 				destination: '/',
-// 				permanent: false,
-// 			},
-// 		}
-// 	}
-
-// 	const sessionId = String(query.session_id)
-
-// 	const session = await stripe.checkout.sessions.retrieve(sessionId, {
-// 		expand: ['line_items', 'line_items.data.price.product'],
-// 	})
-
-// 	const customerName = session.customer_details?.name
-// 	const product = session.line_items?.data[0].price?.product as Stripe.Product
-
-// 	return {
-// 		props: {
-// 			customerName,
-// 			product: {
-// 				name: product.name,
-// 				imageUrl: product.images[0],
-// 			},
-// 		},
-// 	}
-// }

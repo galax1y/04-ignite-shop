@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Stripe from 'stripe'
 import Image from 'next/image'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -9,7 +8,6 @@ import {
 	ProductContainer,
 	ProductDetails,
 } from '../../styles/pages/product'
-import { useState } from 'react'
 import Head from 'next/head'
 import priceFormatter from '../../helpers/priceFormatter'
 import { useShoppingCart } from 'use-shopping-cart'

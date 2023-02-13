@@ -5,8 +5,7 @@ import { globalStyles } from '../styles/global'
 import { Container, Header } from '../styles/pages/app'
 
 import logoImg from '../assets/igniteshop.svg'
-import { CartProvider, actions, useShoppingCart } from 'use-shopping-cart'
-import { Handbag } from 'phosphor-react'
+import { CartProvider } from 'use-shopping-cart'
 import CartDisplay from '../components/CartDisplay'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -17,6 +16,7 @@ globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
 	const { pathname } = useRouter()
+
 	return (
 		<Container>
 			<CartProvider
