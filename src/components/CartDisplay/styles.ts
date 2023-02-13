@@ -52,7 +52,6 @@ export const CartContentContainer = styled('div', {
 	overflowY: 'scroll',
 
 	borderRadius: 8,
-	boxShadow: '0px 0px 60px rgba(0, 0, 0, 0.6)',
 
 	display: 'flex',
 	flexDirection: 'column',
@@ -93,6 +92,22 @@ export const CartItem = styled('div', {
 		'&:hover': {
 			color: '$green300',
 		},
+	},
+})
+
+export const EmptyCartMessage = styled('div', {
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'space-between',
+	margin: '0 1rem',
+
+	span: {
+		lineHeight: 1.6,
+		display: 'block',
+		color: '$gray300',
+	},
+	svg: {
+		color: '$green300',
 	},
 })
 

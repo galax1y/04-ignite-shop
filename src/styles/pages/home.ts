@@ -30,6 +30,7 @@ export const Product = styled('div', {
 		left: '0.25rem',
 		right: '0.25rem',
 		padding: '2rem',
+		maxHeight: '6.875rem',
 
 		borderRadius: 6,
 
