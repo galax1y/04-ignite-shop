@@ -8,12 +8,15 @@ import logoImg from '../assets/igniteshop.svg'
 import { CartProvider, actions, useShoppingCart } from 'use-shopping-cart'
 import { Handbag } from 'phosphor-react'
 import CartDisplay from '../components/CartDisplay'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 
 // Aplica estilização global
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
+	const { pathname } = useRouter()
 	return (
 		<Container>
 			<CartProvider
@@ -22,14 +25,16 @@ export default function App({ Component, pageProps }: AppProps) {
 				stripe={String(process.env.STRIPE_PUBLIC_KEY)}
 				currency='BRL'
 			>
-				<Header>
-					<Image
-						src={logoImg.src}
-						alt=""
-						width={logoImg.width}
-						height={logoImg.height}
-					/>
-					<CartDisplay />
+				<Header className={pathname === '/success' ? 'Center' : undefined}>
+					<Link href={'/'}>
+						<Image
+							src={logoImg.src}
+							alt=""
+							width={logoImg.width}
+							height={logoImg.height}
+						/>
+					</Link>
+					{pathname !== '/success' ? <CartDisplay /> : null}
 
 				</Header>
 

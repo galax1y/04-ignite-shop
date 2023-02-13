@@ -12,14 +12,20 @@ export const Button = styled('button', {
 	color: '$grayIcon',
 	lineHeight: 0,
 
-	'&:hover': {
-		color: '$gray300',
-	},
-
 	variants: {
 		variant: {
+			green: {
+				color: '$white',
+				backgroundColor: '$green500',
+				'&:hover': {
+					backgroundColor: '$green300',
+				},
+			},
 			gray: {
 				backgroundColor: '$gray800',
+				'&:hover': {
+					color: '$gray300',
+				},
 			},
 			transparent: {
 				backgroundColor: 'transparent',

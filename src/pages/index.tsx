@@ -10,6 +10,8 @@ import { useKeenSlider } from 'keen-slider/react'
 import Stripe from 'stripe'
 import { stripe } from '../lib/stripe'
 import Head from 'next/head'
+import { Button } from '../components/Button/styles'
+import { Handbag } from 'phosphor-react'
 
 interface HomeProps {
 	products: {
@@ -45,8 +47,13 @@ export default function Home({ products }: HomeProps) {
 								<Image src={product.imageUrl} width={520} height={480} alt="" />
 
 								<footer>
-									<strong>{product.name}</strong>
-									<span>{product.price}</span>
+									<div>
+										<strong>{product.name}</strong>
+										<span>{product.price}</span>
+									</div>
+									<Button variant={'green'}>
+										<Handbag size={32} weight={'bold'} />
+									</Button>
 								</footer>
 							</Product>
 						</Link>
