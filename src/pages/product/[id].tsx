@@ -24,11 +24,7 @@ interface ProductProps {
 }
 
 export default function Product(product: ProductProps) {
-
-	const {
-		addItem,
-	} = useShoppingCart()
-
+	const { addItem } = useShoppingCart()
 
 	function handleToCartButton(product: ProductProps) {
 		addItem({
@@ -56,7 +52,6 @@ export default function Product(product: ProductProps) {
 				<ProductDetails>
 					<h1>{product.name}</h1>
 					<span>{priceFormatter(product.price)}</span>
-
 					<p>{product.description}</p>
 
 					<button
@@ -85,11 +80,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const productId = String(params!.id)
-
 	const product = await stripe.products.retrieve(productId, {
 		expand: ['default_price'],
 	})
-
 	const price = product.default_price as Stripe.Price
 
 	return {

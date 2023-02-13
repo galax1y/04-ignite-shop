@@ -35,7 +35,6 @@ export default function App({ Component, pageProps }: AppProps) {
 						/>
 					</Link>
 					{pathname !== '/success' ? <CartDisplay /> : null}
-
 				</Header>
 
 				<Component {...pageProps} />

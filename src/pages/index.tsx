@@ -39,7 +39,7 @@ export default function Home({ products }: HomeProps) {
 		mode: 'snap',
 		renderMode: 'precision',
 	})
-	const { addItem, cartCount } = useShoppingCart()
+	const { addItem } = useShoppingCart()
 
 	function handleToCartButton(product: Product) {
 		addItem({
@@ -52,7 +52,6 @@ export default function Home({ products }: HomeProps) {
 			product_data: product.product_data,
 		}, { count: 1 })
 	}
-
 
 	return (
 		<>
@@ -106,34 +105,6 @@ export default function Home({ products }: HomeProps) {
 	)
 }
 
-// If you export a function called getServerSideProps (Server-Side Rendering) from a page,
-// Next.js will pre-render this page on each request using the data returned by getServerSideProps.
-
-// SSR
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const response = await stripe.products.list({
-//     expand: ['data.default_price'],
-//   })
-
-//   const products = response.data.map((product) => {
-//     const price = product.default_price as Stripe.Price
-
-//     return {
-//       id: product.id,
-//       name: product.name,
-//       imageUrl: product.images[0],
-//       price: price.unit_amount / 100,
-//     }
-//   })
-
-//   return {
-//     props: {
-//       products,
-//     },
-//   }
-// }
-
-// SSG
 export const getStaticProps: GetStaticProps = async () => {
 	const response = await stripe.products.list({
 		expand: ['data.default_price'],
