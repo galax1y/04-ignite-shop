@@ -11,7 +11,7 @@ import Stripe from 'stripe'
 import { stripe } from '../lib/stripe'
 import Head from 'next/head'
 import { Button } from '../components/Button/styles'
-import { Handbag } from 'phosphor-react'
+import { CaretLeft, CaretRight, Handbag } from 'phosphor-react'
 import { useShoppingCart } from 'use-shopping-cart'
 import priceFormatter from '../helpers/priceFormatter'
 
@@ -30,11 +30,14 @@ interface Product {
 }
 
 export default function Home({ products }: HomeProps) {
-	const [sliderRef] = useKeenSlider({
+	const [sliderRef, instanceRef] = useKeenSlider({
 		slides: {
 			perView: 2,
 			spacing: 48,
+			origin: "center",
 		},
+		mode: 'snap',
+		renderMode: 'precision',
 	})
 	const { addItem, cartCount } = useShoppingCart()
 
@@ -50,15 +53,22 @@ export default function Home({ products }: HomeProps) {
 			product_data: product.product_data,
 		}, { count: 1 })
 
-		console.log('itens no carrinho:', cartCount)
+		console.log('items in cart:', cartCount)
 	}
+
 
 	return (
 		<>
 			<Head>
 				<title>Ignite Shop | Home</title>
 			</Head>
+
 			<HomeContainer ref={sliderRef} className={'keen-slider'}>
+				<button onClick={() => {
+					instanceRef.current?.prev()
+				}}>
+					<CaretLeft className='ArrowLeft' size={48} weight={'regular'} />
+				</button>
 				{products.map((product) => {
 					return (
 						<Product
@@ -89,6 +99,11 @@ export default function Home({ products }: HomeProps) {
 						</Product>
 					)
 				})}
+				<button onClick={() => {
+					instanceRef.current?.next()
+				}}>
+					<CaretRight className='ArrowRight' size={48} weight={'regular'} />
+				</button>
 			</HomeContainer>
 		</>
 	)

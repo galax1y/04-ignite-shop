@@ -3,10 +3,34 @@ import {styled} from '..'
 export const HomeContainer = styled('main', {
 	display: 'flex',
 
-	width: '100%',
-	maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
+	width: '90%',
 	marginLeft: 'auto',
 	minHeight: 656,
+
+	'> button': {
+		position: 'absolute',
+		all: 'unset',
+		cursor: 'pointer',
+		zIndex: 1,
+		color: '$gray300',
+		backgroundColor: 'red',
+
+		'&:hover': {
+			color: '$white',
+		},
+	},
+
+	'& .ArrowLeft': {
+		position: 'absolute',
+		top: 'calc(50% - 24px)',
+		left: '1rem',
+	},
+
+	'& .ArrowRight': {
+		position: 'absolute',
+		top: 'calc(50% - 24px)',
+		right: '1rem',
+	},
 })
 
 export const Product = styled('div', {
