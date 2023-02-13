@@ -27,11 +27,13 @@ export default function CartDisplay() {
   }
 
   if (cartDetails === undefined) {
-    return
+    return <></>
   }
 
   const cartItems = Object.values(cartDetails)
-  console.log('cartItems:', cartItems)
+
+  const isCartEmpty = cartItems.length === 0
+
 
   return <>
     {shouldDisplayCart ?
@@ -93,7 +95,7 @@ export default function CartDisplay() {
             <strong>{priceFormatter(totalPrice!)}</strong>
           </div>
 
-          <button>
+          <button disabled={isCartEmpty}>
             Finalizar compra
           </button>
         </CartInteractionContainer>
@@ -103,7 +105,9 @@ export default function CartDisplay() {
           null
           : 'Nothing to display'}
       </AsideCartDisplay> :
-      <Button onClick={ToggleCart} variant={'gray'}>
+      <Button
+        onClick={ToggleCart}
+        variant={'gray'}>
         <Handbag size={24} weight={'bold'} />
       </Button>}
   </>

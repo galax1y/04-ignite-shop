@@ -42,7 +42,6 @@ export default function Home({ products }: HomeProps) {
 	const { addItem, cartCount } = useShoppingCart()
 
 	function handleToCartButton(product: Product) {
-		console.log('adding item:', product)
 		addItem({
 			id: product.id,
 			currency: 'BRL',
@@ -52,8 +51,6 @@ export default function Home({ products }: HomeProps) {
 			price_data: product.price_data,
 			product_data: product.product_data,
 		}, { count: 1 })
-
-		console.log('items in cart:', cartCount)
 	}
 
 

@@ -2,9 +2,7 @@ import {styled} from '..'
 
 export const HomeContainer = styled('main', {
 	display: 'flex',
-
-	width: '90%',
-	marginLeft: 'auto',
+	width: '100%',
 	minHeight: 656,
 
 	'> button': {

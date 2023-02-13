@@ -15,12 +15,12 @@ const scrollLeft = keyframes({
 })
 
 export const AsideCartDisplay = styled('aside', {
-	zIndex: 1,
+	zIndex: 2,
 
 	width: 480,
 	height: '100%',
 
-	position: 'absolute',
+	position: 'fixed',
 	top: 0,
 	left: 'calc(100% - 480px)',
 	animation: `${scrollLeft} 0.4s ease-in-out`,
@@ -89,7 +89,7 @@ export const CartItem = styled('div', {
 		cursor: 'pointer',
 		marginTop: '0.5rem',
 
-		'&:hover': {
+		'&:not(:disabled):hover': {
 			color: '$green300',
 		},
 	},
@@ -182,8 +182,13 @@ export const CartInteractionContainer = styled('div', {
 
 		cursor: 'pointer',
 
-		'&:hover': {
+		'&:not(:disabled):hover': {
 			backgroundColor: '$green300',
+		},
+
+		'&:disabled': {
+			cursor: 'not-allowed',
+			backgroundColor: '$grayIcon',
 		},
 	},
 })
