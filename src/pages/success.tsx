@@ -13,20 +13,14 @@ import { useShoppingCart } from 'use-shopping-cart'
 interface SuccessProps {
 	customerName: string
 	// receber vários produtos
-	product: {
+	products: {
 		name: string
 		imageUrl: string
-	}
+	}[]
 }
 
 
-export default function Success({ customerName, product }: SuccessProps) {
-	const { clearCart } = useShoppingCart()
-
-	useEffect(() => {
-		clearCart
-	}, [clearCart])
-
+export default function Success({ customerName, products }: SuccessProps) {
 	return (
 		<>
 			<Head>
@@ -37,15 +31,15 @@ export default function Success({ customerName, product }: SuccessProps) {
 
 			<SuccessContainer>
 				<ImageContainer>
-					<Image src={product.imageUrl} width={120} height={110} alt="" />
-					<Image src={product.imageUrl} width={120} height={110} alt="" />
-					<Image src={product.imageUrl} width={120} height={110} alt="" />
+					{products.map((product => {
+						return <Image key={Math.floor(Math.random() * 8372167)} src={product.imageUrl} width={120} height={110} alt="" />
+					}))}
 				</ImageContainer>
 
 				<h1>Compra efetuada</h1>
 
 				<p>
-					Uhuul <strong>{customerName}</strong>, sua compra de x camisetas já está a caminho da sua casa.
+					Uhuul <strong>{customerName}</strong>, sua compra de {products.length} camisetas já está a caminho da sua casa.
 				</p>
 
 				<Link href="/">Voltar ao catálogo</Link>
@@ -71,15 +65,27 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 	})
 
 	const customerName = session.customer_details?.name
-	const product = session.line_items?.data[0].price?.product as Stripe.Product
+
+	const products = session.line_items?.data.map((item) => {
+		const product = item.price?.product as Stripe.Product
+		const toReturn = []
+		const quantity = item.quantity!
+
+		for (let index = 0; index < quantity; index++) {
+			toReturn.push(
+				{
+					name: product.name,
+					imageUrl: product.images[0],
+				}
+			)
+		}
+		return toReturn
+	}).flat()
 
 	return {
 		props: {
 			customerName,
-			product: {
-				name: product.name,
-				imageUrl: product.images[0],
-			},
+			products,
 		},
 	}
 }

@@ -11,6 +11,7 @@ import {
   EmptyCartMessage,
   ImageContainer
 } from './styles';
+import axios from 'axios';
 
 export default function CartDisplay() {
   const {
@@ -18,13 +19,12 @@ export default function CartDisplay() {
     cartCount,
     shouldDisplayCart,
     totalPrice,
+    clearCart,
     decrementItem,
     handleCartClick,
   } = useShoppingCart()
 
-  function ToggleCart() {
-    handleCartClick()
-  }
+
 
   if (cartDetails === undefined) {
     return <></>
@@ -34,6 +34,34 @@ export default function CartDisplay() {
 
   const isCartEmpty = cartItems.length === 0
 
+  function ToggleCart() {
+    handleCartClick()
+  }
+
+  async function handleCheckout() {
+
+    try {
+
+
+      const lineItems = cartItems.map((item) => {
+        return {
+          price: item.price_id,
+          quantity: item.quantity,
+        }
+      })
+
+      const response = await axios.post('/api/checkout', {
+        lineItems
+      })
+
+      const { checkoutUrl } = response.data
+      window.location.href = checkoutUrl
+      clearCart()
+    }
+    catch (err) {
+      alert('Falha ao redirecionar ao checkout')
+    }
+  }
 
   return <>
     {shouldDisplayCart ?
@@ -95,7 +123,11 @@ export default function CartDisplay() {
             <strong>{priceFormatter(totalPrice!)}</strong>
           </div>
 
-          <button disabled={isCartEmpty}>
+          <button
+            onClick={() => {
+              handleCheckout()
+            }}
+            disabled={isCartEmpty}>
             Finalizar compra
           </button>
         </CartInteractionContainer>
@@ -113,3 +145,33 @@ export default function CartDisplay() {
   </>
 
 }
+
+// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+// 	if (!query.session_id) {
+// 		return {
+// 			redirect: {
+// 				destination: '/',
+// 				permanent: false,
+// 			},
+// 		}
+// 	}
+
+// 	const sessionId = String(query.session_id)
+
+// 	const session = await stripe.checkout.sessions.retrieve(sessionId, {
+// 		expand: ['line_items', 'line_items.data.price.product'],
+// 	})
+
+// 	const customerName = session.customer_details?.name
+// 	const product = session.line_items?.data[0].price?.product as Stripe.Product
+
+// 	return {
+// 		props: {
+// 			customerName,
+// 			product: {
+// 				name: product.name,
+// 				imageUrl: product.images[0],
+// 			},
+// 		},
+// 	}
+// }
