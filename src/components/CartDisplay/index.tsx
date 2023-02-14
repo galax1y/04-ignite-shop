@@ -6,6 +6,7 @@ import priceFormatter from '../../helpers/priceFormatter';
 import {
   AsideCartDisplay,
   CartContentContainer,
+  CartDisplayContainer,
   CartInteractionContainer,
   CartItem,
   EmptyCartMessage,
@@ -56,7 +57,7 @@ export default function CartDisplay() {
       alert('Falha ao redirecionar ao checkout')
     }
   }
-  return <>
+  return <CartDisplayContainer>
     {shouldDisplayCart ?
       <AsideCartDisplay>
         <Button
@@ -124,8 +125,10 @@ export default function CartDisplay() {
       : // shouldDisplayCart ? code above : code below
       <Button
         onClick={ToggleCart}
-        variant={'gray'}>
+        variant={'gray'}
+        className={'ToggleButton'}>
         <Handbag size={24} weight={'bold'} />
+        {cartCount === 0 ? null : <span>{cartCount}</span>}
       </Button>}
-  </>
+  </CartDisplayContainer>
 }

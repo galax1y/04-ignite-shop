@@ -36,7 +36,7 @@ export default function Success({ customerName, products }: SuccessProps) {
 
 				<h1>Compra efetuada</h1>
 				<p>
-					Uhuul <strong>{customerName}</strong>, sua compra de {products.length} camisetas já está a caminho da sua casa.
+					Uhuul <strong>{customerName}</strong>, sua compra de {products.length} {products.length === 1 ? 'camiseta' : 'camisetas'} já está a caminho da sua casa.
 				</p>
 
 				<Link href="/">Voltar ao catálogo</Link>

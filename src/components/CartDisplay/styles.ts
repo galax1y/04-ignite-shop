@@ -14,6 +14,31 @@ const scrollLeft = keyframes({
 	},
 })
 
+export const CartDisplayContainer = styled('div', {
+	'& .ToggleButton': {
+		position: 'absolute',
+		lineHeight: 0,
+	},
+
+	'& .ToggleButton span': {
+		position: 'absolute',
+		top: -12,
+		right: -12,
+		backgroundColor: '$green500',
+		width: 24,
+		height: 24,
+
+		borderRadius: '100%',
+		color: '$white',
+		border: '3px solid $gray900',
+		boxSizing: 'content-box',
+
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+})
+
 export const AsideCartDisplay = styled('aside', {
 	zIndex: 2,
 
